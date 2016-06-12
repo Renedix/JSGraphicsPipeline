@@ -2,7 +2,7 @@
 
 An implementation of a 3D graphics pipeline in Javascript. Only fillRect(x,y,1,1) in html5 canvas to draw items on the screen. Everything from drawing polygons.
 
-![alt tag](https://raw.githubusercontent.com/Renedix/JSGraphicsPipeline/master/Screenshot.png)
+![alt tag](https://raw.githubusercontent.com/Renedix/JsGraphicsPipeline/master/Screenshot.png)
 
 
 Click and drag the graphics area to rotate the camera.
