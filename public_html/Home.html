@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>Renedix 3D Engine</title>
+ 
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+
+<!--Models-->
+<script type="text/javascript" src="Point.js"></script>
+<script type="text/javascript" src="Face.js"></script>
+<script type="text/javascript" src="Window.js"></script>
+<script type="text/javascript" src="Outcode.js"></script>
+<script type="text/javascript" src="Matrix.js"></script>
+<script type="text/javascript" src="TestShapes.js"></script>
+
+<!--Default raster drawing functions-->
+<script type="text/javascript" src="GenericDrawer.js"></script>
+
+<!--Heart and Soul of the 3D engine that pulls in all the algorithms-->
+<script type="text/javascript" src="ViewDrawer.js"></script>
+
+<!--Implemented Algorithms-->
+<script type="text/javascript" src="CohenSutherland.js"></script>
+<script type="text/javascript" src="ZBuffer.js"></script>
+<script type="text/javascript" src="ScanLine.js"></script>
+
+<!--Control the Camera-->
+<script type="text/javascript" src="CameraController.js"></script>
+ 
+</head>
+ 
+<body>
+ 
+<script type="text/javascript">
+	var wind;
+	var CTX;
+	
+	//Camera Control Parameters
+	var control;
+	var mouseDown;
+	var x,y;
+	
+	$(function(){
+		polys = new Array();
+		canvas = document.getElementById("myCanvas");
+		CTX = canvas.getContext("2d");
+			wind = createWindow(0,0,500,500,'black',canvas);
+			control = wind.getController();
+			wind.draw(CTX);
+		
+		//Events
+		var canvas = document.getElementById('myCanvas');
+			canvas.onmousedown = function(e){
+				mouseDown = true;
+				x = e.x;
+				y = e.y;
+			}
+			canvas.onmouseup = function(e){
+				mouseDown = false;
+			}
+			canvas.onmouseout = function(e){
+				mouseDown = false;
+			}
+			canvas.onmousemove = function(e){
+				if(mouseDown==true) {
+					var rotScale = 10;
+					var xDif = (e.x - x)/rotScale;
+					var yDif = (e.y - y)/rotScale;
+					control.moveXRotation(-yDif);
+					control.moveYRotation(xDif);
+					wind.draw(CTX);
+					x = e.x;
+					y = e.y;
+				}
+			}
+	});
+	
+	function resetCamera(){
+		control.resetCamera();
+		wind.draw(CTX);
+	}
+	
+	
+	
+</script>
+<div style="font-weight: bold;"><font size="5">Renedix 3D Engine</font></div>
+ <div style="font-style: italic;">Version 1.5</div>
+ <br>
+ <div>
+	<button type="button" onclick="resetCamera()">Reset Camera</button>
+	<span>ZBuffer: <input type="checkbox" onclick="toggleZBuffer()" checked="true"/></span>
+ </div>
+ <br>
+ <canvas id="myCanvas" width="500" height="500">
+Your browser does not support the HTML5 canvas tag.</canvas> 
+</body>
+
+</html>
+
